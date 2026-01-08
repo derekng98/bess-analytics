@@ -1,0 +1,26 @@
+# ---- Data & configs (never commit) ----
+data/
+*.csv
+*.parquet
+*.xlsx
+config.yaml
+config.yml
+.env
+
+# ---- Outputs ----
+out/
+reports/
+
+# ---- Python ----
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+
+# ---- Virtual environments ----
+.venv/
+venv/

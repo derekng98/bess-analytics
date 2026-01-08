@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "bess-analytics"
+version = "0.1.0"
+description = "Config-driven BESS analytics: daily charge/discharge by enclosure, heatmaps, and outliers"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+authors = [{name = "Derek Ng"}]
+dependencies = [
+  "pandas>=2.0",
+  "numpy>=1.24",
+  "pyyaml>=6.0",
+  "matplotlib>=3.8",
+  "seaborn>=0.13",
+  "typer>=0.9",
+]
+
+[project.scripts]
+bess-analytics = "bess_analytics.cli:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]

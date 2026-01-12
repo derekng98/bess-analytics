@@ -27,6 +27,8 @@ class AppConfig:
     # output
     output_dir: str
     daily_table_file: str
+    outliers_file: str
+    heatmap_file: str
 
 
 def _require(cfg: dict, path: str):
@@ -61,6 +63,9 @@ def load_config(path: str | Path) -> AppConfig:
 
     output_dir = str(_require(cfg, "output.dir"))
     daily_table_file = str(_require(cfg, "output.daily_table_file"))
+    outliers_file = _require(cfg, "output.outliers_file")
+    heatmap_file = _require(cfg, "output.heatmap_file")
+
 
     return AppConfig(
         data_paths=data_paths,
@@ -72,4 +77,6 @@ def load_config(path: str | Path) -> AppConfig:
         split_4=split_4,
         output_dir=output_dir,
         daily_table_file=daily_table_file,
+        outliers_file=outliers_file,
+        heatmap_file=heatmap_file,
     )

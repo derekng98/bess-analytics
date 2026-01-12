@@ -6,6 +6,9 @@ from .config import AppConfig
 from .energy_from_power import AllocationConfig, daily_energy_by_enclosure_from_dc_input_power
 from .io import expand_globs, load_files
 
+from .viz import make_outliers_table, save_discharged_heatmap
+
+
 
 def run_daily(cfg: AppConfig) -> Path:
     files = expand_globs(cfg.data_paths)
@@ -27,6 +30,19 @@ def run_daily(cfg: AppConfig) -> Path:
 
     out_dir = Path(cfg.output_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
-    out_path = out_dir / cfg.daily_table_file
-    daily.to_csv(out_path, index=False)
-    return out_path
+
+    # 1) Save the daily table
+    daily_path = out_dir / cfg.daily_table_file
+    daily.to_csv(daily_path, index=False)
+
+    # 2) Outliers table
+    outliers = make_outliers_table(daily, n=5)
+    outliers_path = out_dir / cfg.outliers_file
+    outliers.to_csv(outliers_path, index=False)
+
+    # 3) Heatmap
+    heatmap_path = out_dir / cfg.heatmap_file
+    save_discharged_heatmap(daily, heatmap_path)
+
+    return daily_path
+

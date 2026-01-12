@@ -93,7 +93,7 @@ data:
 
 parsing:
   timestamp_col: "Timestamp"
-  timezone: "Asia/Kuala_Lumpur"
+  timezone: "Australia/Sydney"
 
 power:
   # Matches: BESS1 DC Input Power (kW) [Battery Inverter 1APCS1]

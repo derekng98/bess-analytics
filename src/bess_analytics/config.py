@@ -56,16 +56,16 @@ def load_config(path: str | Path) -> AppConfig:
     split_6_raw = _require(cfg, "allocation.split_6")
     split_4_raw = _require(cfg, "allocation.split_4")
 
-    split_6 = (int(split_6_raw[0]), int(split_6_raw[1]))
-    split_4 = (int(split_4_raw[0]), int(split_4_raw[1]))
     if len(split_6_raw) != 2 or len(split_4_raw) != 2:
         raise ValueError("allocation.split_6 and allocation.split_4 must be length-2 lists")
 
+    split_6 = (int(split_6_raw[0]), int(split_6_raw[1]))
+    split_4 = (int(split_4_raw[0]), int(split_4_raw[1]))
+
     output_dir = str(_require(cfg, "output.dir"))
     daily_table_file = str(_require(cfg, "output.daily_table_file"))
-    outliers_file = _require(cfg, "output.outliers_file")
-    heatmap_file = _require(cfg, "output.heatmap_file")
-
+    outliers_file = str(_require(cfg, "output.outliers_file"))
+    heatmap_file = str(_require(cfg, "output.heatmap_file"))
 
     return AppConfig(
         data_paths=data_paths,

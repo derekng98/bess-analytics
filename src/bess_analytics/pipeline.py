@@ -1,14 +1,9 @@
 from __future__ import annotations
-
 from pathlib import Path
-
 from .config import AppConfig
 from .energy_from_power import AllocationConfig, daily_energy_by_enclosure_from_dc_input_power
 from .io import expand_globs, load_files
-
 from .viz import make_outliers_table, save_discharged_heatmap
-
-
 
 def run_daily(cfg: AppConfig) -> Path:
     files = expand_globs(cfg.data_paths)

@@ -1,7 +1,8 @@
 import typer
-
+from pathlib import Path
 from .config import load_config
 from .pipeline import run_daily
+from importlib.metadata import PackageNotFoundError, version as pkg_version
 
 app = typer.Typer(add_completion=False, help="BESS analytics CLI")
 
@@ -14,16 +15,25 @@ def hello() -> None:
 
 @app.command("version")
 def version() -> None:
-    """Print version."""
-    typer.echo("0.1.0")
+    """Print installed package version."""
+    try:
+        typer.echo(pkg_version("bess-analytics"))
+    except PackageNotFoundError:
+        typer.echo("unknown")
 
 
 @app.command("run")
 def run(config: str = typer.Option(..., "--config", "-c", help="Path to config.yaml")) -> None:
-    """Generate daily energy table (per enclosure, per day)."""
+    """Generate daily energy + outliers + heatmap outputs."""
     cfg = load_config(config)
-    out_path = run_daily(cfg)
-    typer.echo(f"Saved daily table: {out_path}")
+    daily_path = run_daily(cfg)
+
+    out_dir = Path(cfg.output_dir)
+    typer.echo(f"Saved daily table: {daily_path}")
+    outliers_path = out_dir / cfg.outliers_file
+    typer.echo(f"Saved outliers table: {outliers_path}")
+    heatmap_path = out_dir / cfg.heatmap_file
+    typer.echo(f"Saved discharged heatmap: {heatmap_path}")
 
 
 def main() -> None:

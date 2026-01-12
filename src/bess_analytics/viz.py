@@ -28,7 +28,7 @@ def make_outliers_table(daily: pd.DataFrame, n: int = 5) -> pd.DataFrame:
 
 def save_discharged_heatmap(daily: pd.DataFrame, out_path: Path) -> None:
     """
-    Heatmap: rows=enclosures, cols=day, values=disharged_kwh
+    Heatmap: rows=enclosures, cols=day, values=discharged_kwh
     """
     # pivot to matrix
     mat = daily.pivot(index="enclosure_id", columns="day", values="discharged_kwh").fillna(0)

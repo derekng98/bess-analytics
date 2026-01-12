@@ -11,12 +11,14 @@ requires-python = ">=3.10"
 license = {text = "MIT"}
 authors = [{name = "Derek Ng"}]
 dependencies = [
-  "pandas>=2.0",
   "numpy>=1.24",
   "pyyaml>=6.0",
   "matplotlib>=3.8",
   "seaborn>=0.13",
-  "typer>=0.9",
+  "typer>=0.12",
+  "pandas>=2.0",
+  "pyarrow>=14.0",
+  "PyYAML>=6.0",
 ]
 
 [project.scripts]

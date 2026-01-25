@@ -101,10 +101,16 @@ def daily_energy_by_enclosure_from_dc_input_power(
     df2 = df.copy()
     df2["_ts"] = _localize(df2[timestamp_col], timezone)
     df2 = df2.sort_values("_ts")
+    
 
     # compute dt in hours
     dt = df2["_ts"].diff().dt.total_seconds().div(3600.0)
     dt_median = float(dt.dropna().median()) if dt.notna().any() else 1.0 / 60.0
+
+    # ignore large timestamp gaps 
+    gap_threshold_h = max(5 / 60.0, 3 * dt_median)
+    dt = dt.mask(dt > gap_threshold_h, 0.0)
+    
     df2["_dt_h"] = dt.fillna(dt_median)
 
     df2["day"] = df2["_ts"].dt.floor("D").dt.date
